@@ -38,6 +38,7 @@ Name : {_firstName} {_lastName}
 Cohort : {Cohort}
 Slack :{Slack_handle} \n
             ");
+            
             return output.ToString();
         }
     }
