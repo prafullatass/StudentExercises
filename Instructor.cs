@@ -4,7 +4,19 @@ namespace StudentExercises
     {
         private string _firstName;
         private string _lastName;
-        private string Slack_handle;
+        //public string Slack_handle;
         private string _cohort;
+        public Instructor(string firstName, string lastName) {
+            _firstName = firstName;
+            _lastName = lastName;
+        }
+        public string Cohort {
+            get {
+                return _cohort;
+            }
+            set {
+                _cohort = value;
+            }
+        }
     }
 }

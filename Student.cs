@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using System.Text;
 
 namespace StudentExercises
 {
@@ -7,9 +8,9 @@ namespace StudentExercises
     {
         private string _firstName;
         private string _lastName;
-        private string Slack_handle;
         private string _cohort;
-        //public List<Exercise> Exercises = new List<Exercise>();
+        public string Slack_handle;
+        public List<Exercise> Exercises = new List<Exercise>();
 
         public Student (string FirstName, string LastName) {
             _firstName = FirstName;
@@ -23,7 +24,21 @@ namespace StudentExercises
             get {
                 return _cohort;
             }
+        }
+        public void assignExercises(List<Exercise> exercises) {
+            Exercises.AddRange(exercises);
+        }
+        public void assignExercises(Exercise exercise) {
+            Exercises.Add(exercise);
+        }
 
+        public override string ToString() {
+            StringBuilder output = new StringBuilder($@"
+Name : {_firstName} {_lastName}
+Cohort : {Cohort}
+Slack :{Slack_handle} \n
+            ");
+            return output.ToString();
         }
     }
 }
