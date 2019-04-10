@@ -1,0 +1,14 @@
+{
+  "ProjectFilePath": "c:\\Users\\prafu\\workspace\\csharp\\StudentExercises\\StudentExercises.csproj",
+  "TargetFramework": "netcoreapp2.2",
+  "TagHelpers": [],
+  "Configuration": {
+    "ConfigurationName": "UnsupportedRazor",
+    "LanguageVersion": "1.0",
+    "Extensions": [
+      {
+        "ExtensionName": "UnsupportedRazorExtension"
+      }
+    ]
+  }
+}
