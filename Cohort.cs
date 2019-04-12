@@ -11,7 +11,12 @@ namespace StudentExercises
         public Cohort (string CohortName) {
             _name = CohortName;
         }
-
+        public string CohortName {
+            get
+            {
+                return _name;
+            }
+        }
         public void addStudent(List<Student> studs) {
             _students.AddRange(studs);
         }
@@ -25,11 +30,14 @@ namespace StudentExercises
         public override string ToString() {
             StringBuilder output = new StringBuilder();
             output.Append($@"
-                {_name}
-                ---------------------------
-                Instructors --
-            ");
-            _students.ForEach(stud => output.Append($@""))
+    {_name}
+    ---------------------------
+    Instructors --");
+            _instructors.ForEach(inst => output.Append($"\n {inst.FullName}"));
+            output.Append(@"
+    -------------------------
+    Students --");
+            _students.ForEach(stud => output.Append($"\n {stud.FullName} "));
             return output.ToString();
         }
     }
