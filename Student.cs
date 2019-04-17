@@ -1,35 +1,19 @@
 
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace StudentExercises
 {
-    class Student
+    public class Student : NSSPerson
     {
-        private string _firstName;
-        private string _lastName;
-        private Cohort _cohort;
-        public string Slack_handle;
+
         public List<Exercise> Exercises = new List<Exercise>();
-        public string FullName {
-            get
-            {
-                return ($"{_firstName} {_lastName}");
-            }
-        }
-        public Student (string FirstName, string LastName) {
-            _firstName = FirstName;
-            _lastName = LastName;
+
+        public Student (string fName, string lastName, string slack, Cohort cohort) :
+        base ( fName,  lastName,  slack,  cohort) {
         }
 
-        public Cohort Cohort {
-            set {
-                _cohort = value;
-            }
-            get {
-                return _cohort;
-            }
-        }
         public void assignExercises(List<Exercise> exercises) {
             Exercises.AddRange(exercises);
         }
@@ -39,7 +23,7 @@ namespace StudentExercises
 
         public override string ToString() {
             StringBuilder output = new StringBuilder($@"
-                Name : {_firstName} {_lastName}
+                Name : {FullName}
                 Cohort : {Cohort.CohortName}
                 Slack :{Slack_handle}
                 Exercises :

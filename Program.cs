@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace StudentExercises
 {
@@ -11,38 +13,18 @@ namespace StudentExercises
             Cohort E6 = new Cohort("Evening Cohort 6");
             Cohort C33 = new Cohort("Cohort 33");
 
-            Student Praful = new Student("Prafullata" , "Sonawane");
-            Praful.Cohort = C30;
-            Praful.Slack_handle = "day-cohort-30";
+            Student Praful = new Student("Prafullata" , "Sonawane", "praful", C30);
 
-            Student Janet = new Student("Janet" , "Woods");
-            Janet.Cohort = C30;
-            Janet.Slack_handle = "day-cohort-26";
+            Student Janet = new Student("Janet" , "Woods", "janet", C30);
 
-            Student Nisha = new Student("Nisha" , "Shah");
-            Nisha.Cohort = C33;
-            Nisha.Slack_handle = "day-cohort-33";
+            Student Nisha = new Student("Nisha" , "Shah", "nisha", C33);
 
-            Student Ryan = new Student("Ryan", "D");
-            Ryan.Cohort = C33;
-            Ryan.Slack_handle = "day-cohort-33";
+            Student Ryan = new Student("Steven", "D", "Steven", C33);
 
-            Instructor Steve = new Instructor("Steve", "Brownlee");
-            Instructor Meg = new Instructor("Meg", "D");
-            Instructor Jenna = new Instructor("Jenna", "Solis");
-            Instructor Jessi = new Instructor("Jessi", "");
-
-            Steve.Cohort = C30;
-            Steve.Slack_handle = "Day-Cohort-30";
-
-            Meg.Cohort = E6;
-            Meg.Slack_handle = "Evening 6";
-
-            Jenna.Cohort = C30;
-            Jenna.Slack_handle = "Day-Cohort-30";
-
-            Jessi.Cohort = C33;
-            Jessi.Slack_handle = "Day-Cohort-33";
+            Instructor Steve = new Instructor("Steve", "Brownlee", "steve", C30);
+            Instructor Meg = new Instructor("Meg", "D", "meg", E6);
+            Instructor Jenna = new Instructor("Jenna", "Solis", "jenna", C30);
+            Instructor Jessi = new Instructor("Jessi", "", "jessi", C33);
 
             C30.addInstructor(Steve);
             C30.addInstructor(Jenna);
@@ -54,7 +36,6 @@ namespace StudentExercises
 
             Exercise SolarSystem = new Exercise("JS", "SolarSystem");
             Exercise OverlyExcited = new Exercise("JS", "Overly Excited");
-            
             Exercise nutshell = new Exercise("React", "Nutshell");
             Exercise addressBook = new Exercise("C#", "Address Book");
             Exercise capstone = new Exercise("React", "Capstone Project");
@@ -63,6 +44,7 @@ namespace StudentExercises
             Steve.assignExercise(capstone, Praful);
             Jessi.assignExercise(nutshell, Ryan);
             Jessi.assignExercise(capstone, Nisha);
+            Jenna.assignExercise(OverlyExcited, Janet);
 
             Console.WriteLine(Praful);
             Console.WriteLine(Nisha);
@@ -96,6 +78,17 @@ namespace StudentExercises
                 C33,
                 E6
             };
+            //List exercises for the JavaScript language by using the Where() LINQ method.
+            IEnumerable<Exercise> JS_exercises = from exercise in exercises
+                        where exercise.Language.Equals("JS")
+                        select exercise;
+            Console.WriteLine("Only JS exercises ---");
+            foreach (Exercise ex in JS_exercises)
+            {
+                Console.WriteLine($"{ex.Name}");
+            };
+            //List students in a particular cohort by using the Where() LINQ method.
+            //IEnumerable<Student> studentsC30 = from
         }
     }
 }

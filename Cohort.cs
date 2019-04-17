@@ -3,7 +3,7 @@ using System.Text;
 
 namespace StudentExercises
 {
-    class Cohort
+    public class Cohort
     {
         private string _name;
         private List<Student> _students = new List<Student>();
