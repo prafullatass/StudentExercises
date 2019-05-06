@@ -15,7 +15,7 @@ namespace StudentExercises.Model
 
         public override string ToString()
         {
-            return $"{FirstName} {LastName} has spcality in {Specality} handle slack {SlackHandle} taking {Cohort.CohortName}";
+            return $"{FirstName} {LastName} instructing {Cohort.CohortName}, has spcality in {Specality} and handle slack {SlackHandle}";
         }
     }
 }

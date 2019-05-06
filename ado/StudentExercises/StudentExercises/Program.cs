@@ -52,6 +52,39 @@ namespace StudentExercises
             Console.WriteLine("====================");
             List<Exercise> JavaExercises = repo.singleExercises("Javascript");
             JavaExercises.ForEach(Console.WriteLine);
+
+            //insert a new exercise into the database
+
+            //repo.InsertNewExercise(new Exercise
+            //{
+            //    Title = "chickenMonkey",
+            //    Language = "JavaScript"
+            //});
+            //Console.WriteLine();
+            //Console.WriteLine("Exercises");
+            //Console.WriteLine("====================");
+
+            //exercises = repo.GetExercises();
+            //exercises.ForEach(Console.WriteLine);
+
+            //insert new instructor
+            //repo.AddNewInstructor(new Instructor
+            //{
+            //    FirstName = "Kimmy",
+            //    LastName = "Bird", 
+            //    SlackHandle = "@Kimmy",
+            //    Specality = "C#"
+            //}, 2);
+
+            //Console.WriteLine();
+            //Console.WriteLine("Instructors");
+            //Console.WriteLine("====================");
+
+            //instructors = repo.GetInstructors();
+            //instructors.ForEach(Console.WriteLine);
+
+
+
         }
     }
 }

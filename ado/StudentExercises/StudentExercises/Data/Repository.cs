@@ -227,5 +227,42 @@ namespace StudentExercises.Data
                 return exercises;
             }
         }
+
+        public void InsertNewExercise (Exercise ex)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using(SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = $@"INSERT INTO Exercise (Title, Language)
+                                    VALUES (@title, @language)";
+                    cmd.Parameters.Add(new SqlParameter ( "@title", ex.Title ));
+                    cmd.Parameters.Add(new SqlParameter ("@language", ex.Language));
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void AddNewInstructor(Instructor instructor, int cohortId)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = $@"INSERT INTO Instructor (FirstName, LastName, Specality, 
+                                            SlackHandle, CohortId)
+                                            VALUES (@firstName, @lastname, @specality, 
+                                            @slackHandle, @cohortId)";
+                    cmd.Parameters.Add(new SqlParameter("@firstName", instructor.FirstName));
+                    cmd.Parameters.Add(new SqlParameter("@lastname", instructor.LastName));
+                    cmd.Parameters.Add(new SqlParameter("@specality", instructor.Specality));
+                    cmd.Parameters.Add(new SqlParameter("@slackHandle", instructor.SlackHandle));
+                    cmd.Parameters.Add(new SqlParameter("@cohortId", cohortId));
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
