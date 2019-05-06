@@ -40,8 +40,18 @@ namespace StudentExercises
             List<Student> students = repo.GetStudents();
             students.ForEach(Console.WriteLine);
 
+            Console.WriteLine();
+            Console.WriteLine("Students - Exercises");
+            Console.WriteLine("====================");
+
             List<StudentExercise> studentExercises = repo.GetStudentExercise();
             studentExercises.ForEach(Console.WriteLine);
+
+            Console.WriteLine();
+            Console.WriteLine("Javascript Exercises");
+            Console.WriteLine("====================");
+            List<Exercise> JavaExercises = repo.singleExercises("Javascript");
+            JavaExercises.ForEach(Console.WriteLine);
         }
     }
 }

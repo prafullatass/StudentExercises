@@ -201,5 +201,31 @@ namespace StudentExercises.Data
             }
             return studentExercises;
         }
+
+        public List<Exercise> singleExercises (string language)
+        {
+            List<Exercise> exercises = new List<Exercise>();
+            using(SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using(SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"SELECT id, Title from Exercise where 
+                                        Language = 'JavaScript'";
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        exercises.Add( new Exercise
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            Title = reader.GetString(reader.GetOrdinal("Title")),
+                            Language = "Javascript"
+                    });
+                    }
+                    reader.Close();
+                }
+                return exercises;
+            }
+        }
     }
 }
