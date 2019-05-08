@@ -114,6 +114,8 @@ namespace StudentExercises.Data
         public List<Student> GetStudents ()
         {
             List<Student> students = new List<Student>();
+            
+            Dictionary<int, Student> HashTableForStudentExercises = new Dictionary<int, Student>();
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
@@ -124,25 +126,45 @@ namespace StudentExercises.Data
                                         s.LastName,
                                         s.SlackHandle,
                                         s.CohortId ,
-                                        c.CohortName
-                                        FROM Student s join Cohort c on s.CohortId = c.Id ";
+                                        c.CohortName,
+                                        e.Title,
+                                        e.Language,
+                                        se.ExerciseId ExId
+                                        FROM Student s join Cohort c on s.CohortId = c.Id 
+                                        join StudentExercise se on se.StudentId = s.Id
+                                        join Exercise e on se.ExerciseId =  e.Id";
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        students.Add(new Student
+                        //List<Exercise> ex = new List<Exercise>();
+                        int studId = reader.GetInt32(reader.GetOrdinal("Id"));
+                        if (!HashTableForStudentExercises.ContainsKey(studId))
                         {
-                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
-                            FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
-                            LastName = reader.GetString(reader.GetOrdinal("LastName")),
-                            SlackHandle = reader.GetString(reader.GetOrdinal("SlackHandle")),
-                            Cohort = new Cohort
+                            HashTableForStudentExercises[studId] = new Student
                             {
-                                Id = reader.GetInt32(reader.GetOrdinal("CohortId")),
-                                CohortName = reader.GetString(reader.GetOrdinal("CohortName"))
-                            }
-                        });
-                    }
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                                SlackHandle = reader.GetString(reader.GetOrdinal("SlackHandle")),
+
+                                Cohort = new Cohort
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("CohortId")),
+                                    CohortName = reader.GetString(reader.GetOrdinal("CohortName"))
+                                }
+                            };
+                        }
+                        HashTableForStudentExercises[studId].Exercises.Add(
+                            new Exercise
+                                {
+                                    Id = reader.GetInt32(reader.GetOrdinal("ExId")),
+                                    Title = reader.GetString(reader.GetOrdinal("Title")),
+                                    Language = reader.GetString(reader.GetOrdinal("Language"))
+                                }
+                            );
+                     }
                     reader.Close();
+                    students.AddRange(HashTableForStudentExercises.Values);
                 }
                 return students;
             }
@@ -263,6 +285,47 @@ namespace StudentExercises.Data
                     cmd.ExecuteNonQuery();
                 }
             }
+        }
+
+        public List<Student> FindStudents(string str)
+        {
+            //When using single object
+            //Student student = null;
+            List<Student> students = new List<Student>();
+            using(SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = $@"SELECT s.Id, s.FirstName, s.LastName,
+                                            s.SlackHandle, s.CohortId, c.CohortName
+                                            FROM student s JOIN Cohort c on s.CohortId = c.Id
+                                            where FirstName LIKE @str
+                                            OR LastName LIKE @str";
+                    cmd.Parameters.Add(new SqlParameter("@str", $"%{str}%"));
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while(reader.Read())
+                    {
+                        //single object
+                        //student = new Student
+                        students.Add(new Student 
+                        {
+                            Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                            FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                            LastName = reader.GetString(reader.GetOrdinal("LastName")),
+                            SlackHandle = reader.GetString(reader.GetOrdinal("SlackHandle")),
+                            Cohort = new Cohort
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("Id")),
+                                CohortName = reader.GetString(reader.GetOrdinal("CohortName"))
+                            }
+                        });
+                        
+                    }
+                    reader.Close();
+                }
+            }
+            return students;
         }
     }
 }

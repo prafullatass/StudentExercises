@@ -83,8 +83,15 @@ namespace StudentExercises
             //instructors = repo.GetInstructors();
             //instructors.ForEach(Console.WriteLine);
 
+            // Find student in db
+            //single object
+            //Console.WriteLine(repo.FindStudents("pr));
 
-
+            Console.WriteLine("Enter Name of Student to search ");
+            Console.WriteLine(">");
+            string str = Console.ReadLine();
+            students = repo.FindStudents(str);
+            students.ForEach(Console.WriteLine);
         }
     }
 }
