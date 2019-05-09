@@ -88,5 +88,7 @@ namespace StudentExercisesApi.Controllers
                 return Ok(ex);
             }
         }
+
+        [HttpPost ]
     }
 }
