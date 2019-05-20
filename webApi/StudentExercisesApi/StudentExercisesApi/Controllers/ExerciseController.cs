@@ -89,6 +89,6 @@ namespace StudentExercisesApi.Controllers
             }
         }
 
-        [HttpPost ]
+        //[HttpPost ]
     }
 }
